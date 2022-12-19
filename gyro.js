@@ -1,6 +1,7 @@
 const acl = new Accelermeter({ frequency: 60});
 //fake Acc value for testing, replace with real Acc
-let fakeAcc = 270;
+let fakeAccA = 270;
+let fakeAccB= 100;
 //calc and store half of Screen
 let mScreenW = window.innerWidth/2;
 let mScreenH = window.innerHeight/2;
@@ -27,7 +28,7 @@ function draw (){
     let scndFill = rotCirc*1.4;
     //make shape for the filled circle
     fill(255,0,0);
-    arc(window.innerWidth/2,window.innerHeight/2, 100, 100, rotCirc, scndFill);
+    arc(window.innerWidth/2,fakeAccB, 100, 100, rotCirc, scndFill);
 
 
 }
