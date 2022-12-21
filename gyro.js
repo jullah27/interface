@@ -47,7 +47,7 @@ function draw (){
 
 }
 
-function accSensors{
+function accSensors(){
     accAX=DeviceMotionEvent.accelerationIncludingGravity.x*5;
     accAY=DeviceMotionEvent.accelerationIncludingGravity.y*5;
 }
