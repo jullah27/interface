@@ -1,5 +1,8 @@
 let acl = new Accelermeter({ frequency: 60});
 let sensorsWorking=false;
+//making sliders if no acc
+let sliderY;
+let sliderX;
 //fake Acc value for testing, replace with real Acc
 let fakeAccA = 270;
 let fakeAccB= 100;
@@ -9,7 +12,7 @@ let accY;
 //var for current state of Acc
 let accAX;
 let accAY;
-fakeAccB = AccB;
+fakeAccB = AccY;
 //calc and store half of Screen
 let mScreenW = window.innerWidth/2;
 let mScreenH = window.innerHeight/2;
@@ -19,7 +22,13 @@ let gyroFill = fakeAcc;
 //make canvas, store var with init value
 function setup () {
     createCanvas (window.innerWidth, window.innerHeight);
-  //check if sensors are available 
+    sliderY = createSlider(0, 100, 50);
+    sliderY.position(0, window.innerHeight);
+    sliderY.style('width', '80px');
+    sliderX = createSlider(0, 100, 50);
+    slicerX.position(window.innerWidth/2,windwo.innerHeigth);
+    sliderX.style('width', '80px');
+    //check if sensors are available 
     if(window.DeviceMotionEvent != undefined) {
        print('status_ready');
         sensorsWorking=true;}
