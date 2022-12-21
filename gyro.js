@@ -1,4 +1,3 @@
-let acl = new Accelermeter({ frequency: 60});
 let sensorsWorking=false;
 //making sliders if no acc
 let sliderY;
