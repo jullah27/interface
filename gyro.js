@@ -43,6 +43,7 @@ function draw (){
     let fakAccY= sliderY.value();
 //calc X-value for red filling
     let fakAccX=(sliderX.value()/50)*PI-1/2*PI;
+    accSensors();
     makeCircle(fakAccY,fakAccX,0,50,100,0);
     makeCircle(leftToRight,rotateDegrees,100,50,100,0);
 
