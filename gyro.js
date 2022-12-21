@@ -44,8 +44,6 @@ function draw (){
     fill(50,100,0);
     let fakAccY= sliderY.value();
     circle (fakAccY,window.innerHeight/2,100);
-    print(sliderY.value());
-    print(sliderY.value());
     //def var which cut the first border
     let fakAccX=(sliderX.value()/50)*PI-1/2*PI;
     let rotCirc = fakAccX;
