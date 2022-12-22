@@ -36,6 +36,7 @@ function setup () {
         sensorsWorking=true;}
 else {console.log('no_sensors');
      }
+}
     //giving permission on ios13 for access to sensors
     if (typeof(DeviceOrientationEvent)!=='undefined'&& typeof(DeviceOrientationEvent.requestPermission) === 'function'){
   button = createButton('click to start');
