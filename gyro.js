@@ -25,7 +25,7 @@ let arcFill = 0.5;
 //make canvas, store var with init value
 function setup () {
     createCanvas (window.innerWidth, window.innerHeight);
-    sliderY = createSlider(0, window.innerWidth, window.innerWidht/2);
+    sliderY = createSlider(0, window.innerWidth, window.innerWidth/2);
     sliderY.position(0, window.innerHeight);
     sliderY.style('width', '80px');
     sliderX = createSlider(0, 100, 50);
@@ -77,8 +77,10 @@ function draw (){
 //calc X-value for red filling
     let fakAccX=(sliderX.value()/50)*PI-1/2*PI;
     accSensors();
+    accX = ((leftToRight+180)/360)*window.innerWidth;
+    accY = ((rotateDegrees+180)/180)*PI-1/2*PI;
     makeCircle(fakAccY,fakAccX,0,50,100,0);
-    makeCircle(leftToRight,rotateDegrees,100,50,100,0);
+    makeCircle(accX,accY,100,50,100,0);
 
 }
 
@@ -87,10 +89,11 @@ function accSensors(){
         rotateDegrees = event.alpha; // alpha: rotation around z-axis
         leftToRight = event.gamma; // gamma: left to right
         frontToBack = event.beta; // beta: front back motion
-   
+
 
 }, true);
 }
+
 function makeCircle(ax,ay,y,r,g,b){
     fill(r,g,b);
     circle (ax,window.innerHeight/2+y,100);
