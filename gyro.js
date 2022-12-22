@@ -1,6 +1,7 @@
 //making var for sensor checking
 let sensorsWorking=false;
 let button;
+let buttonII;
 let permissionGranted = false;
 //making slider values
 let sliderY;
@@ -36,19 +37,23 @@ function setup () {
         sensorsWorking=true;}
 else {console.log('no_sensors');
      }
-}
     //giving permission on ios13 for access to sensors
     if (typeof(DeviceOrientationEvent)!=='undefined'&& typeof(DeviceOrientationEvent.requestPermission) === 'function'){
   button = createButton('click to start');
-  button.style("fontSize", "24px");
+  button.style("fontSize", "40px");
   button.center();
-  button.mousePressed( requestAccess );
+  button.mousePressed(requestAccess);
   console.log('ios 13');
     }
     else{
   //non ios13
+  buttonII = createButton('click to start');
+  buttonII.style("fontSize", "40px");
+  buttonII.center;
+  buttonII.mousePressed(givePermission);
 console.log('no ios13');
     }
+}
 function requestAccess(){
     DeviceOrientationEvent.requestPermission()
     .then(response => {
@@ -60,10 +65,13 @@ function requestAccess(){
     .cartch(console.error);
 }
 
+function givePermission(){
+    permissionGranted = true;
+}
 //draw and fill circle
 function draw (){
-    if (!permissionGranted) return;
     //background
+    if (!permissionGranted) return;
     background(00,200,200);
     let fakAccY= sliderY.value();
 //calc X-value for red filling
