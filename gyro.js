@@ -77,8 +77,8 @@ function draw (){
 //calc X-value for red filling
     let fakAccX=(sliderX.value()/50)*PI-1/2*PI;
     accSensors();
-    accX = ((leftToRight+180)/360)*window.innerWidth*5;
-    accY = ((rotateDegrees+180)/90)*PI-1/4*PI;
+    accX = ((leftToRight+180)/360)*window.innerWidth;
+    accY = ((rotateDegrees+180)/90)*PI-1/2*PI;
     makeCircle(fakAccY,fakAccX,0,50,100,0);
     makeCircle(accX,accY,100,50,100,0);
 
