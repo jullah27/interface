@@ -10,8 +10,8 @@ let sliderX;
 let fakeAccA = 270;
 let fakeAccB= 100;
 // var for accX & accY
-let accX;
-let accY = window.innerWidth/2;
+let accX = window.innerWidth/2
+let accY = 1;
 //var for current state of Acc
 let leftToRight = 100;
 let rotateDegrees = 100;
