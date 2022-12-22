@@ -1,4 +1,7 @@
+//making var for sensor checking
 let sensorsWorking=false;
+let button;
+let permissionGranted = false;
 //making slider values
 let sliderY;
 let sliderX;
@@ -29,11 +32,31 @@ function setup () {
     sliderX.style('width', '80px');
     //check if sensors are available 
     if(window.DeviceOrientationEvent != undefined) {
-       print('status_ready');
+      console.log('status_ready');
         sensorsWorking=true;}
-else {print('no_sensors');
+else {console.log('no_sensors');
      }
-    
+    //giving permission on ios13 for access to sensors
+    if (typeof(DeviceOrientationEvent)!=='undefined'&& typeof(DeviceOrientationEvent.requestPermission) === 'function'){
+  button = createButton('click to start');
+  button.style("fontSize", "24px");
+  button.center();
+  button.mousePressed( requestAccess );
+  console.log('ios 13');
+    }
+    else{
+  //non ios13
+console.log('no ios13');
+    }
+function requestAccess(){
+    DeviceOrientationEvent.requestPermission()
+    .then(response => {
+    if (response =='granted'){
+      permissionGranted = true;
+      
+    }
+     })
+    .cartch(console.error);
 }
 
 //draw and fill circle
