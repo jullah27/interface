@@ -62,6 +62,7 @@ function requestAccess(){
 
 //draw and fill circle
 function draw (){
+    if (!permissionGranted) return;
     //background
     background(00,200,200);
     let fakAccY= sliderY.value();
