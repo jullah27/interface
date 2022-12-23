@@ -3,6 +3,7 @@ let sensorsWorking=false;
 let button;
 let buttonII;
 let permissionGranted = false;
+let ios13 = false;
 //making slider values
 let sliderY;
 let sliderX;
@@ -10,8 +11,8 @@ let sliderX;
 let fakeAccA = 270;
 let fakeAccB= 100;
 // var for accX & accY
-let accX = window.innerWidth/2
-let accY = 1;
+let accX;
+let accY = window.innerWidth/2;
 //var for current state of Acc
 let leftToRight = 100;
 let rotateDegrees = 100;
@@ -25,17 +26,12 @@ let arcFill = 0.5;
 //make canvas, store var with init value
 function setup () {
     createCanvas (window.innerWidth, window.innerHeight);
-    sliderY = createSlider(0, window.innerWidth, window.innerWidth/2);
-    sliderY.position(0, window.innerHeight);
-    sliderY.style('width', '80px');
-    sliderX = createSlider(0, 100, 50);
-    sliderX.position(window.innerWidth/2,window.innerHeigth);
-    sliderX.style('width', '80px');
     //check if sensors are available 
     if(window.DeviceOrientationEvent != undefined) {
       console.log('status_ready');
         sensorsWorking=true;}
 else {console.log('no_sensors');
+sensorsWorking = false;
      }
     //giving permission on ios13 for access to sensors
     if (typeof(DeviceOrientationEvent)!=='undefined'&& typeof(DeviceOrientationEvent.requestPermission) === 'function'){
@@ -44,15 +40,24 @@ else {console.log('no_sensors');
   button.center();
   button.mousePressed(requestAccess);
   console.log('ios 13');
+  ios13 = true;
     }
     else{
   //non ios13
   buttonII = createButton('click to start');
   buttonII.style("fontSize", "40px");
-  buttonII.center;
+  buttonII.position(window.innerWidth/2,window.innerHeight/2);
   buttonII.mousePressed(givePermission);
 console.log('no ios13');
     }
+if (!sensorsWorking){
+    sliderY = createSlider(0, window.innerWidth, window.innerWidth/2);
+    sliderY.position(window.innerWidth/4, window.innerHeight/4);
+    sliderY.style('width', '160px');
+    sliderX = createSlider(0, 100, 0);
+    sliderX.position(window.innerWidth/2,window.innerHeight/4);
+    sliderX.style('width', '160px');
+}
 }
 function requestAccess(){
     DeviceOrientationEvent.requestPermission()
@@ -63,25 +68,29 @@ function requestAccess(){
     }
      })
     .cartch(console.error);
+    button.hide();
 }
 
 function givePermission(){
     permissionGranted = true;
+    buttonII.hide();
 }
 //draw and fill circle
 function draw (){
     //background
     if (!permissionGranted) return;
     background(00,200,200);
-    let fakAccY= sliderY.value();
 //calc X-value for red filling
-    let fakAccX=(sliderX.value()/50)*PI-1/2*PI;
     accSensors();
     accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
     accY = ((rotateDegrees+180)/90)*PI-1/2*PI;
+    if (!sensorsWorking){
+    let fakAccY= sliderY.value()
+    let fakAccX=(sliderX.value()/100)+1;
     makeCircle(fakAccY,fakAccX,0,50,100,0);
-    makeCircle(accX,accY,100,50,100,0);
-
+    }
+    else{
+    makeCircle(accX,accY,100,50,100,0);}
 }
 
 function accSensors(){
@@ -98,7 +107,7 @@ function makeCircle(ax,ay,y,r,g,b){
     fill(r,g,b);
     circle (ax,window.innerHeight/2+y,100);
     fill(255,0,0);
-    arc(ax,window.innerHeight/2+y, 100, 100, -1/2*PI, ay);
+    arc(ax,window.innerHeight/2+y, 100, 100, -ay*5/4*PI, ay*-1/4*PI);
     //
 
 }
