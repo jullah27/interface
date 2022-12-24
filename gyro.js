@@ -52,7 +52,7 @@ console.log('no ios13');
     }
 if (!sensorsWorking){
     sliderY = createSlider(0, window.innerWidth, window.innerWidth/2);
-    sliderY.position(window.innerWidth/2, window.innerHeight/4);
+    sliderY.position(window.innerWidth/2,0+20);
     sliderY.style('width', '160px');
     sliderX = createSlider(0, 100, 0);
     sliderX.position(window.innerWidth/2,window.innerHeight/4);
