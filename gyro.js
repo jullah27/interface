@@ -52,7 +52,7 @@ console.log('no ios13');
     }
 if (!sensorsWorking){
     sliderY = createSlider(0, window.innerWidth, window.innerWidth/2);
-    sliderY.position(window.innerWidth+10, window.innerHeight/4);
+    sliderY.position(window.innerWidth/2, window.innerHeight/4);
     sliderY.style('width', '160px');
     sliderX = createSlider(0, 100, 0);
     sliderX.position(window.innerWidth/2,window.innerHeight/4);
@@ -77,9 +77,9 @@ function givePermission(){
 }
 //draw and fill circle
 function draw (){
-    //background
+    //background(20);
     if (!permissionGranted) return;
-    background(00,200,200);
+    background(41,70,70);
 //calc X-value for red filling
     accSensors();
     accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
@@ -87,10 +87,10 @@ function draw (){
     if (!sensorsWorking){
     let fakAccY= sliderY.value()
     let fakAccX=(sliderX.value()/100)+1;
-    makeCircle(fakAccY,fakAccX,0,50,100,0);
+    makeCircle(fakAccY,fakAccX,0,150,0,100);
     }
     else{
-    makeCircle(accX,accY,100,50,100,0);}
+    makeCircle(accX,accY,100,150,0,100);}
 }
 
 function accSensors(){
@@ -106,7 +106,7 @@ function accSensors(){
 function makeCircle(ax,ay,y,r,g,b){
     fill(r,g,b);
     circle (ax,window.innerHeight/2+y,100);
-    fill(255,0,0);
+    fill(20,20,100);
     arc(ax,window.innerHeight/2+y, 100, 100, -ay*5/4*PI, ay*-1/4*PI);
     //
 
