@@ -52,7 +52,7 @@ console.log('no ios13');
     }
 if (!sensorsWorking){
     sliderY = createSlider(0, window.innerWidth, window.innerWidth/2);
-    sliderY.position(window.innerWidth/4, window.innerHeight/4);
+    sliderY.position(window.innerWidth+10, window.innerHeight/4);
     sliderY.style('width', '160px');
     sliderX = createSlider(0, 100, 0);
     sliderX.position(window.innerWidth/2,window.innerHeight/4);
@@ -60,6 +60,7 @@ if (!sensorsWorking){
 }
 }
 function requestAccess(){
+    button.hide();
     DeviceOrientationEvent.requestPermission()
     .then(response => {
     if (response =='granted'){
@@ -68,7 +69,6 @@ function requestAccess(){
     }
      })
     .cartch(console.error);
-    button.hide();
 }
 
 function givePermission(){
@@ -82,7 +82,7 @@ function draw (){
     background(00,200,200);
 //calc X-value for red filling
     accSensors();
-    accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
+    accX = (((leftToRight+180)/360)*window.innerWidth)*4-(window.innerWidth/4);
     accY = ((rotateDegrees+180)/90)*PI-1/2*PI;
     if (!sensorsWorking){
     let fakAccY= sliderY.value()
