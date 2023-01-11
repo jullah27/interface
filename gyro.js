@@ -1,3 +1,20 @@
+// websocket
+const socket = new WebSocket('wss://avior.uber.space/gyrointerface/');
+// connectin every 3 seconds to server
+socket.addEventListener('open', (event) => {
+  setInterval(() => {
+    if (socket.readyState == socket.OPEN) {
+      socket.send('');
+    }
+  }, 30000);
+});
+// listen to message from server
+socket.addEventListener('message', (event) => {
+  const mean = JSON.parse(event.data);
+  meanDot.style.left = `${100 * mean[0]}%`;
+  meanDot.style.top = `${100 * mean[1]}%`;
+});
+
 //making var for sensor checking
 let sensorsWorking=false;
 let button;
@@ -88,9 +105,12 @@ function draw (){
     let fakAccY= sliderY.value()
     let fakAccX=(sliderX.value()/100)+1;
     makeCircle(fakAccY,fakAccX,0,150,0,100);
+        
     }
     else{
-    makeCircle(accX,accY,100,150,0,100);}
+    makeCircle(accX,accY,100,150,0,100);
+    socket.send(`[${accX}, ${accY}]`)
+    }
 }
 
 function accSensors(){
