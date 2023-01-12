@@ -11,8 +11,7 @@ socket.addEventListener('open', (event) => {
 // listen to message from server
 socket.addEventListener('message', (event) => {
   const mean = JSON.parse(event.data);
-  meanDot.style.left = `${100 * mean[0]}%`;
-  meanDot.style.top = `${100 * mean[1]}%`;
+makeCircle(calcValueA(calcValueA(mean[1]), calcValueB(mean[2],200,200,0,100);
 });
 
 //making var for sensor checking
@@ -99,8 +98,9 @@ function draw (){
     background(41,70,70);
 //calc X-value for red filling
     accSensors();
-    accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
-    accY = ((rotateDegrees+180)/90)*PI-1/2*PI;
+    //accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
+    //accY = ((rotateDegrees+180)/90)*PI-1/2*PI;
+  
     if (!sensorsWorking){
     let fakAccY= sliderY.value()
     let fakAccX=(sliderX.value()/100)+1;
@@ -108,8 +108,11 @@ function draw (){
         
     }
     else{
-    makeCircle(accX,accY,100,150,0,100);
-    socket.send(`[${accX}, ${accY}]`)
+      //making circle with momentary values
+      calcCircleValues(
+    makeCircle(calcValueA(leftToRight),calcValueB(rotateDegrees),100,150,0,100);
+      //sending values to server
+    socket.send(`[${leftToRight}, ${rotateDegrees}]`)
     }
 }
 
@@ -131,3 +134,12 @@ function makeCircle(ax,ay,y,r,g,b){
     //
 
 }
+function calcValueA (a){
+  return let = posA = (((a+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
+
+}
+
+function calcValueB (b){
+  return posB = ((b+180)/90)*Math.PI-1/2*Math.PI;
+}
+
