@@ -11,7 +11,7 @@ socket.addEventListener('open', (event) => {
 // listen to message from server
 socket.addEventListener('message', (event) => {
   const mean = JSON.parse(event.data);
-makeCircle(calcValueA(calcValueA(mean[1]), calcValueB(mean[2],200,200,0,100);
+makeCircle(calcValueA(calcValueA(mean[1]), calcValueB(mean[2]),200,200,0,100);
 });
 
 //making var for sensor checking
