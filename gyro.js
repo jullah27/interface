@@ -106,8 +106,7 @@ function draw (){
     }
     else{
       //making circle with momentary values
-      calcCircleValues(
-    makeCircle(100,100,100,150,0,100);
+    makeCircle(calcValuesA(leftToRight),calcValuesB(rotateDegrees),100,150,0,100);
       //sending values to server
     socket.send(`[${leftToRight}, ${rotateDegrees}]`)
     }
