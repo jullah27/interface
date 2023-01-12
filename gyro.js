@@ -98,9 +98,6 @@ function draw (){
     background(41,70,70);
 //calc X-value for red filling
     accSensors();
-    //accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
-    //accY = ((rotateDegrees+180)/90)*PI-1/2*PI;
-  
     if (!sensorsWorking){
     let fakAccY= sliderY.value()
     let fakAccX=(sliderX.value()/100)+1;
