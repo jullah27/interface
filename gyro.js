@@ -93,7 +93,7 @@ function givePermission(){
 }
 //draw and fill circle
 function draw (){
-    //background(20);
+    //background
     if (!permissionGranted) return;
     background(41,70,70);
 //calc X-value for red filling
@@ -104,14 +104,11 @@ function draw (){
     let fakAccY= sliderY.value()
     let fakAccX=(sliderX.value()/100)+1;
     makeCircle(fakAccY,fakAccX,0,150,0,100);
-        
     }
     else{
-      //making circle with momentary values
-    makeCircle(accY,accX,100,150,0,100);
-      //sending values to server
-    socket.send(`[${leftToRight}, ${rotateDegrees}]`)
-    }
+    accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
+    accY = ((rotateDegrees+180)/90)*PI-1/2*PI;
+    makeCircle(accX,accY,100,20,0,100);}
 }
 
 function accSensors(){
