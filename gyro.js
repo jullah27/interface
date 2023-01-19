@@ -108,7 +108,7 @@ function draw (){
     else{
     accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
     accY = ((rotateDegrees+180)/90);
-    makeCircle(accX,accY,100,20,0,100);}
+    makeCircle(accX,accY,100,150,0,100);}
 }
 
 function accSensors(){
