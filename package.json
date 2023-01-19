@@ -1,5 +1,5 @@
 {
-  "name": "mean-position",
+  "name": "gyro",
   "version": "0.1.0",
   "description": "a simple example using web sockets",
   "main": "server.js",
@@ -11,6 +11,6 @@
     "transpile": "tsc *.ts",
     "start": "node server.js"
   },
-  "author": "norbert.schnell@hs-furtwangen.de",
+  "author": "kontakt@jasonullah.com",
   "license": "BSD"
 }
