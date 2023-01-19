@@ -102,12 +102,12 @@ function draw (){
     accY = ((rotateDegrees+180)/90)*PI-1/2*PI;
     if (!sensorsWorking){
     let fakAccY= sliderY.value()
-    let fakAccX=(sliderX.value()/100)+1;
+    let fakAccX=(sliderX.value()/50);
     makeCircle(fakAccY,fakAccX,0,150,0,100);
     }
     else{
     accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
-    accY = ((rotateDegrees+180)/90)*PI-1/2*PI;
+    accY = ((rotateDegrees+180)/90);
     makeCircle(accX,accY,100,20,0,100);}
 }
 
@@ -125,9 +125,7 @@ function makeCircle(ax,ay,y,r,g,b){
     fill(r,g,b);
     circle (ax,window.innerHeight/2+y,100);
     fill(20,20,100);
-    arc(ax,window.innerHeight/2+y, 100, 100, -ay*5/4*PI, ay*-1/4*PI);
-    //
-
+    arc(ax,window.innerHeight/2+y, 100,100 , 5/4*PI+ay*PI, -1/4*PI+ay*PI);
 }
 function calcValueA (a){
   return let = posA = (((a+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
