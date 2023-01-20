@@ -25,8 +25,8 @@ let fakeAccB= 100;
 let accX;
 let accY = window.innerWidth/2;
 //var for current state of Acc
-let leftToRight = 100;
-let rotateDegrees = 100;
+let leftToRight = 0;
+let rotateDegrees = 0;
 fakeAccB = accY;
 //calc and store half of Screen
 let mScreenW = window.innerWidth/2;
@@ -69,6 +69,7 @@ if (!sensorsWorking){
     sliderX.position(window.innerWidth/2,window.innerHeight/4);
     sliderX.style('width', '160px');
 }
+  function accSensors();
 }
 function requestAccess(){
     button.hide();
@@ -92,7 +93,7 @@ function draw (){
     if (!permissionGranted) return;
     background(41,70,70);
 //calc X-value for red filling
-    accSensors();
+   // accSensors();
     accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
     accY = ((rotateDegrees+180)/90)*PI-1/2*PI;
     if (!sensorsWorking){
@@ -111,10 +112,13 @@ function accSensors(){
         rotateDegrees = event.alpha; // alpha: rotation around z-axis
         leftToRight = event.gamma; // gamma: left to right
         frontToBack = event.beta; // beta: front back motion
+        });
+ }                         
+ function sendToServer(){                      
  socket.addEventListener('message', (event) => {
  const mean = JSON.parse(event.data);
 makeCircle(calcValueA(mean[1]), calcValueB(mean[2]),200,200,0,100);
-});
+
 
 
 }, true);
