@@ -27,6 +27,9 @@ let accY = window.innerWidth/2;
 //var for current state of Acc
 let leftToRight = 0;
 let rotateDegrees = 0;
+// array for storing values of accelere
+let storeAccX =[];
+let storeAccY = [];
 fakeAccB = accY;
 //calc and store half of Screen
 let mScreenW = window.innerWidth/2;
@@ -69,7 +72,8 @@ if (!sensorsWorking){
     sliderX.position(window.innerWidth/2,window.innerHeight/4);
     sliderX.style('width', '160px');
 }
-  function accSensors();
+ accSensors();
+    
 }
 function requestAccess(){
     button.hide();
@@ -112,6 +116,8 @@ function accSensors(){
         rotateDegrees = event.alpha; // alpha: rotation around z-axis
         leftToRight = event.gamma; // gamma: left to right
         frontToBack = event.beta; // beta: front back motion
+        storeAccY.push[leftToRight];
+        storeAccX.push[rotateDegrees];
         });
  }                         
  function sendToServer(){                      
