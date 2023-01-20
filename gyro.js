@@ -8,11 +8,6 @@ socket.addEventListener('open', (event) => {
     }
   }, 30000);
 });
-// listen to message from server
-socket.addEventListener('message', (event) => {
-  const mean = JSON.parse(event.data);
-makeCircle(calcValueA(mean[1]), calcValueB(mean[2]),200,200,0,100);
-});
 
 //making var for sensor checking
 let sensorsWorking=false;
@@ -116,6 +111,10 @@ function accSensors(){
         rotateDegrees = event.alpha; // alpha: rotation around z-axis
         leftToRight = event.gamma; // gamma: left to right
         frontToBack = event.beta; // beta: front back motion
+ socket.addEventListener('message', (event) => {
+ const mean = JSON.parse(event.data);
+makeCircle(calcValueA(mean[1]), calcValueB(mean[2]),200,200,0,100);
+});
 
 
 }, true);
