@@ -1,5 +1,5 @@
 // websocket
-const socket = new WebSocket('wss://jason27.uber.space/interface);
+const socket = new WebSocket('wss://avior.uber.space/interface/');
 // connectin every 3 seconds to server
 socket.addEventListener('open', (event) => {
   setInterval(() => {
