@@ -28,14 +28,14 @@ let accY = window.innerWidth/2;
 let leftToRight = 0;
 let rotateDegrees = 0;
 // array for storing values of accelere
-let storeAccX =[];
-let storeAccY = [];
 fakeAccB = accY;
 //calc and store half of Screen
 let mScreenW = window.innerWidth/2;
 let mScreenH = window.innerHeight/2;
 //define var for filling of circle
 let arcFill = 0.5;
+//making array for background
+let storeValuesX=[];
 
 //make canvas, store var with init value
 function setup () {
@@ -43,72 +43,71 @@ function setup () {
     //check if sensors are available 
     if(window.DeviceOrientationEvent != undefined) {
       console.log('status_ready');
-        sensorsWorking=true;}
-else {console.log('no_sensors');
-sensorsWorking = false;
+      sensorsWorking=true;}
+    else {console.log('no_sensors');
+      sensorsWorking = false;
      }
     //giving permission on ios13 for access to sensors
-    if (typeof(DeviceOrientationEvent)!=='undefined'&& typeof(DeviceOrientationEvent.requestPermission) === 'function'){
-  button = createButton('click to start');
-  button.style("fontSize", "40px");
-  button.center();
-  button.mousePressed(requestAccess);
-  console.log('ios 13');
-  ios13 = true;
-    }
-    else{
+  if (typeof(DeviceOrientationEvent)!=='undefined'&& typeof(DeviceOrientationEvent.requestPermission) === 'function'){
+   button = createButton('click to start');
+   button.style("fontSize", "40px");
+   button.center();
+   button.mousePressed(requestAccess);
+   console.log('ios 13');
+   ios13 = true;
+     }
+  else{
   //non ios13
-  buttonII = createButton('click to start');
-  buttonII.style("fontSize", "40px");
-  buttonII.position(window.innerWidth/2,window.innerHeight/2);
-  buttonII.mousePressed(givePermission);
-console.log('no ios13');
+    buttonII = createButton('click to start');
+    buttonII.style("fontSize", "40px");
+    buttonII.position(window.innerWidth/2,window.innerHeight/2);
+    buttonII.mousePressed(givePermission);
+    console.log('no ios13');
     }
-if (!sensorsWorking){
+   if (!sensorsWorking){
     sliderY = createSlider(0, window.innerWidth, window.innerWidth/2);
     sliderY.position(window.innerWidth/2,0+20);
     sliderY.style('width', '160px');
     sliderX = createSlider(0, 100, 0);
     sliderX.position(window.innerWidth/2,window.innerHeight/4);
     sliderX.style('width', '160px');
-}
- accSensors();
+    }
+  accSensors();
     
 }
 function requestAccess(){
-    button.hide();
-    DeviceOrientationEvent.requestPermission()
+   button.hide();
+   DeviceOrientationEvent.requestPermission()
     .then(response => {
-    if (response =='granted'){
+   if (response =='granted'){
       permissionGranted = true;
-      
-    }
+      }
      })
-    .cartch(console.error);
+   .cartch(console.error);
 }
 
 function givePermission(){
-    permissionGranted = true;
-    buttonII.hide();
+   permissionGranted = true;
+   buttonII.hide();
 }
 //draw and fill circle
 function draw (){
-    //background
-    if (!permissionGranted) return;
-    background(41,70,70);
-//calc X-value for red filling
-   // accSensors();
-    accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
-    accY = ((rotateDegrees+180)/90)*PI-1/2*PI;
-    if (!sensorsWorking){
-    let fakAccY= sliderY.value()
-    let fakAccX=(sliderX.value()/50);
-    makeCircle(fakAccY,fakAccX,0,150,0,100);
+  if (!permissionGranted) return;
+  //make background with stored values
+  background(map(meanVal(storeValuesX)+random(-5,0),-180,180,0,255),map(meanVal(storeValuesX)+random(0,5),-180,180,255,0),0);
+  //calc circle values
+  accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
+  accY = ((rotateDegrees+180)/90)*PI-1/2*PI;
+  if (!sensorsWorking){
+   let fakAccY= sliderY.value()
+   let fakAccX=(sliderX.value()/50);
+   makeCircle(fakAccY,fakAccX,0,150,0,100);  
     }
-    else{
+  else{
     accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
     accY = ((rotateDegrees+180)/90);
-    makeCircle(accX,accY,100,150,0,100);}
+    makeCircle(accX,accY,100,150,0,100);
+   }
 }
 
 function accSensors(){
@@ -116,32 +115,40 @@ function accSensors(){
         rotateDegrees = event.alpha; // alpha: rotation around z-axis
         leftToRight = event.gamma; // gamma: left to right
         frontToBack = event.beta; // beta: front back motion
-        storeAccY.push[leftToRight];
-        storeAccX.push[rotateDegrees];
+        storeValuesX.push[leftToRight];
+        while (storeValuesX.length>=5){
+        storeValuesX.shift();       
+  }
+        //storeAccX.push[rotateDegrees];
         });
  }                         
- function sendToServer(){                      
+function sendToServer(){                      
  socket.addEventListener('message', (event) => {
  const mean = JSON.parse(event.data);
-makeCircle(calcValueA(mean[1]), calcValueB(mean[2]),200,200,0,100);
+  makeCircle(calcValueA(mean[1]), calcValueB(mean[2]),200,200,0,100);
 
 
 
-}, true);
+  }, true);
 }
 
 function makeCircle(ax,ay,y,r,g,b){
-    fill(r,g,b);
-    circle (ax,window.innerHeight/2+y,100);
-    fill(20,20,100);
-    arc(ax,window.innerHeight/2+y, 100,100 , 5/4*PI+ay*PI, -1/4*PI+ay*PI);
+   fill(r,g,b);
+   circle (ax,window.innerHeight/2+y,100);
+   fill(20,20,100);
+   arc(ax,window.innerHeight/2+y, 100,100 , 5/4*PI+ay*PI, -1/4*PI+ay*PI);
 }
 function calcValueA (a){
-  return let = posA = (((a+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
-
+ return let = posA = (((a+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
 }
 
 function calcValueB (b){
-  return posB = ((b+180)/90)*Math.PI-1/2*Math.PI;
+ return posB = ((b+180)/90)*Math.PI-1/2*Math.PI;
 }
-
+function meanVal(array){
+  let tempStorage=0;
+  for(let i = 0; i< array.length; i++){
+    tempStorage += array[i]; 
+  }
+  return tempStorage/array.length;
+}
