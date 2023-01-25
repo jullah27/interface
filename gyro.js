@@ -131,7 +131,7 @@ function accSensors(){
         leftToRight = event.gamma; // gamma: left to right -> x
         frontToBack = event.beta; // beta: front back motion
         //storeAccX.push[rotateDegrees];
-        orientation = [lefttoRight, rotateDegrees];
+        orientation = [leftToRight, rotateDegrees];
         });
  }                         
 function makeCircle(ax,ay,y,r,g,b){
