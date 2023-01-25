@@ -101,12 +101,20 @@ function draw (){
   if (!sensorsWorking){
    let fakAccY= sliderY.value()
    let fakAccX=(sliderX.value()/50);
+    storeValuesX.push[fakAccX];
+    while (storeValuesX.length>=10){
+      storeValuesX.shift();
+    }
    makeCircle(fakAccY,fakAccX,0,150,0,100);  
     }
   else{
     accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
     accY = ((rotateDegrees+180)/90);
     makeCircle(accX,accY,100,150,0,100);
+    storeValuesX.push[leftToRight];
+    while (storeValuesX.length>=10){
+    storeValuesX.shift();       
+  }
    }
 }
 
@@ -115,10 +123,6 @@ function accSensors(){
         rotateDegrees = event.alpha; // alpha: rotation around z-axis
         leftToRight = event.gamma; // gamma: left to right
         frontToBack = event.beta; // beta: front back motion
-        storeValuesX.push[leftToRight];
-        while (storeValuesX.length>=5){
-        storeValuesX.shift();       
-  }
         //storeAccX.push[rotateDegrees];
         });
  }                         
