@@ -1,4 +1,4 @@
-const socket = new WebSocket('wss://avior.uber.space/gyrointerface/receiver');
+const socket = new WebSocket('wss://jason27.uber.space/interface/receiver');
 //const socket = new WebSocket('ws://localhost:8000/receiver');
 
 const meanDot = document.querySelector('.dot.mean');
