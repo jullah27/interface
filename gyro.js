@@ -1,4 +1,5 @@
 let mean = null;
+let orientation=null;
 // websocket
 const socket = new WebSocket('wss://jason27.uber.space/interface/');
 // connectin every 3 seconds to server
@@ -8,9 +9,9 @@ socket.addEventListener('open', (event) => {
   }, true);
   setInterval(() => {
     if (socket.readyState == socket.OPEN) {
-      socket.send('');
+     socket.send(JSON.stringify(orientation)) 
     }
-  }, 30000);
+  }, 100);
 });
 
 //making var for sensor checking
@@ -130,7 +131,7 @@ function accSensors(){
         leftToRight = event.gamma; // gamma: left to right -> x
         frontToBack = event.beta; // beta: front back motion
         //storeAccX.push[rotateDegrees];
-        socket.send(`[${leftToRight}, ${rotateDegrees}]`);
+        orientation = [lefttoRight, rotateDegrees];
         });
  }                         
 function makeCircle(ax,ay,y,r,g,b){
