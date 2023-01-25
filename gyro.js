@@ -120,7 +120,7 @@ function draw (){
     while (storeValuesX.length>=10){
     storeValuesX.shift();       
     } 
-   makeCircle(mean[0],mean[1], 30, 100,0,0);
+   makeCircle(calcValueA(mean[0]),calcValueB(mean[1]), window.innerHeigth/4, 100,0,0);
     
    }
 }
