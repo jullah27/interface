@@ -2,16 +2,16 @@ let mean = null;
 let orientationArray=null;
 // websocket
 const socket = new WebSocket('wss://jason27.uber.space/interface/');
-// connectin every 3 seconds to server
+// Establishing websocket connection, sending Array every 100ms to server
 socket.addEventListener('open', (event) => {
-  socket.addEventListener('message', (event) => {
- mean = JSON.parse(event.data);
-  }, true);
-  setInterval(() => {
-    if (socket.readyState == socket.OPEN) {
-     socket.send(JSON.stringify(orientationArray)) 
-    }
-  }, 100);
+    socket.addEventListener('message', (event) => {
+      mean = JSON.parse(event.data);
+      }, true);
+    setInterval(() => {
+      if (socket.readyState == socket.OPEN) {
+        socket.send(JSON.stringify(orientationArray)) 
+        }
+    }, 100);
 });
 
 //making var for sensor checking
@@ -44,56 +44,57 @@ let storeValuesX=[];
 
 //make canvas, store var with init value
 function setup () {
-    createCanvas (window.innerWidth, window.innerHeight);
+     createCanvas (window.innerWidth, window.innerHeight);
     //check if sensors are available 
-    if(window.DeviceOrientationEvent != undefined) {
-      console.log('status_ready');
-      sensorsWorking=true;}
-    else {console.log('no_sensors');
+     if(window.DeviceOrientationEvent != undefined) {
+        console.log('status_ready');
+        sensorsWorking=true;
+     }
+     else {console.log('no_sensors');
       sensorsWorking = false;
      }
     //giving permission on ios13 for access to sensors
-  if (typeof(DeviceOrientationEvent)!=='undefined'&& typeof(DeviceOrientationEvent.requestPermission) === 'function'){
-   button = createButton('click to start');
-   button.style("fontSize", "40px");
-   button.center();
-   button.mousePressed(requestAccess);
-   console.log('ios 13');
-   ios13 = true;
-     }
-  else{
+     if (typeof(DeviceOrientationEvent)!=='undefined'&& typeof(DeviceOrientationEvent.requestPermission) === 'function'){
+        button = createButton('click to start');
+        button.style("fontSize", "40px");
+        button.center();
+        button.mousePressed(requestAccess);
+        console.log('ios 13');
+        ios13 = true;
+        }
+     else{
   //non ios13
-    buttonII = createButton('click to start');
-    buttonII.style("fontSize", "40px");
-    buttonII.position(window.innerWidth/2,window.innerHeight/2);
-    buttonII.mousePressed(givePermission);
-    console.log('no ios13');
-    }
-   if (!sensorsWorking){
-    sliderY = createSlider(0, window.innerWidth, window.innerWidth/2);
-    sliderY.position(window.innerWidth/2,0+20);
-    sliderY.style('width', '160px');
-    sliderX = createSlider(0, 100, 0);
-    sliderX.position(window.innerWidth/2,window.innerHeight/4);
-    sliderX.style('width', '160px');
-    }
-  accSensors();
+        buttonII = createButton('click to start');
+        buttonII.style("fontSize", "40px");
+        buttonII.position(window.innerWidth/2,window.innerHeight/2);
+        buttonII.mousePressed(givePermission);
+        console.log('no ios13');
+        }
+     if (!sensorsWorking){
+       sliderY = createSlider(0, window.innerWidth, window.innerWidth/2);
+       sliderY.position(window.innerWidth/2,0+20);
+       sliderY.style('width', '160px');
+       sliderX = createSlider(0, 100, 0);
+       sliderX.position(window.innerWidth/2,window.innerHeight/4);
+       sliderX.style('width', '160px');
+       }
+      accSensors();
     
 }
 function requestAccess(){
    button.hide();
    DeviceOrientationEvent.requestPermission()
-    .then(response => {
-   if (response =='granted'){
-      permissionGranted = true;
+      .then(response => {
+        if (response =='granted'){
+        permissionGranted = true;
+        }
+      })
+      .cartch(console.error);
       }
-     })
-   .cartch(console.error);
-}
 
 function givePermission(){
-   permissionGranted = true;
-   buttonII.hide();
+      permissionGranted = true;
+      buttonII.hide();
 }
 //draw and fill circle
 function draw (){
@@ -104,12 +105,12 @@ function draw (){
   accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
   accY = ((rotateDegrees+180)/90)*PI-1/2*PI;
   if (!sensorsWorking){
-   let fakAccY= sliderY.value()
-   let fakAccX=(sliderX.value()/50);
+    let fakAccY= sliderY.value()
+    let fakAccX=(sliderX.value()/50);
     storeValuesX.push[fakAccX];
     while (storeValuesX.length>=10){
-      storeValuesX.shift();
-    }
+    storeValuesX.shift();
+  }
    makeCircle(fakAccY,fakAccX,0,150,0,100);  
     }
   else{
@@ -117,11 +118,10 @@ function draw (){
     accY = ((rotateDegrees+180)/90);
     makeCircle(accX,accY,100,150,0,100);
     storeValuesX.push[leftToRight];
-    while (storeValuesX.length>=10){
-    storeValuesX.shift();       
-    } 
-   makeCircle((((mean[0]+180)/360)*window.innerWidth)*2-(window.innerWidth/2),(mean[1]+180)/90, window.innerHeigth/4, 100,0,0);
-    
+      while (storeValuesX.length>=10){
+      storeValuesX.shift();       
+      } 
+    makeCircle((((mean[0]+180)/360)*window.innerWidth)*2-(window.innerWidth/2),(mean[1]+180)/90, (window.innerHeigth/2)+50, 100,0,0); 
    }
 }
 
