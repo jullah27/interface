@@ -1,7 +1,11 @@
+let mean = null;
 // websocket
 const socket = new WebSocket('wss://jason27.uber.space/interface/');
 // connectin every 3 seconds to server
 socket.addEventListener('open', (event) => {
+  socket.addEventListener('message', (event) => {
+ mean = JSON.parse(event.data);
+  }, true);
   setInterval(() => {
     if (socket.readyState == socket.OPEN) {
       socket.send('');
@@ -114,28 +118,21 @@ function draw (){
     storeValuesX.push[leftToRight];
     while (storeValuesX.length>=10){
     storeValuesX.shift();       
-  }
+    } 
+   makeCircle(mean[0],mean[1], 30, 100,0,0);
+    
    }
 }
 
 function accSensors(){
  window.addEventListener("deviceorientation", (event) => {
-        rotateDegrees = event.alpha; // alpha: rotation around z-axis
-        leftToRight = event.gamma; // gamma: left to right
+        rotateDegrees = event.alpha; // alpha: rotation around z-axis -> y
+        leftToRight = event.gamma; // gamma: left to right -> x
         frontToBack = event.beta; // beta: front back motion
         //storeAccX.push[rotateDegrees];
+        socket.send(`[${leftToRight}, ${rotateDegrees}]`);
         });
  }                         
-function sendToServer(){                      
- socket.addEventListener('message', (event) => {
- const mean = JSON.parse(event.data);
-  makeCircle(calcValueA(mean[1]), calcValueB(mean[2]),200,200,0,100);
-
-
-
-  }, true);
-}
-
 function makeCircle(ax,ay,y,r,g,b){
    fill(r,g,b);
    circle (ax,window.innerHeight/2+y,100);
