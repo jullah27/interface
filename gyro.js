@@ -1,5 +1,5 @@
 let mean = null;
-let orientation=null;
+let orientationArray=null;
 // websocket
 const socket = new WebSocket('wss://jason27.uber.space/interface/');
 // connectin every 3 seconds to server
@@ -9,7 +9,7 @@ socket.addEventListener('open', (event) => {
   }, true);
   setInterval(() => {
     if (socket.readyState == socket.OPEN) {
-     socket.send(JSON.stringify(orientation)) 
+     socket.send(JSON.stringify(orientationArray)) 
     }
   }, 100);
 });
@@ -131,7 +131,7 @@ function accSensors(){
         leftToRight = event.gamma; // gamma: left to right -> x
         frontToBack = event.beta; // beta: front back motion
         //storeAccX.push[rotateDegrees];
-        orientation = [leftToRight, rotateDegrees];
+        orientationArray = [leftToRight, rotateDegrees];
         });
  }                         
 function makeCircle(ax,ay,y,r,g,b){
