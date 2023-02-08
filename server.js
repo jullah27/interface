@@ -50,6 +50,8 @@ server.on('connection', (socket, req) => {
 
     mean[0] /= positions.size;
     mean[1] /= positions.size;
+    mean[1] += 180;
+    mean [1] = mean[1]%360;
 
     for (let socket of server.clients) {
       socket.send(JSON.stringify(mean));
