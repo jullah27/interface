@@ -133,7 +133,7 @@ function accSensors(){
         frontToBack = event.beta; // beta: front back motion
         //storeAccX.push[rotateDegrees];
      // calc rotateDegrees with no border
-        let tempStor = leftToRight+180;
+        let tempStor = rotateDegrees+180;
         tempStor = tempStor%360;
         orientationArray = [leftToRight, tempStor];
         });
