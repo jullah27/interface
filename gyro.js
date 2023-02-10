@@ -118,8 +118,7 @@ function draw (){
     textSize(32);
     fill(255,255,255);
     textFont('Georgia');
-    text('your value', window.innerWidth/2-75,window.innerHeight-250);  
-    }
+    text('your value', window.innerWidth/2-75,window.innerHeight-window.innerHeight/4);     }
   else{
     accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
     accY = ((rotateDegrees+180)/90);
@@ -127,9 +126,9 @@ function draw (){
     textSize(32);
     fill(255,255,255);
     textFont('Georgia');
-    text('your value', window.innerWidth/2-75,window.innerHeight-250);    
+    text('your value', window.innerWidth/2-75,window.innerHeight-window.innerHeight/4);     
     storeValuesX.push[leftToRight];
-      while (storeValuesX.length>=10){
+    while (storeValuesX.length>=10){
       storeValuesX.shift();       
       } 
    }
