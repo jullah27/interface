@@ -118,7 +118,7 @@ function draw (){
     textSize(32);
     fill(255,255,255);
     textFont('Georgia');
-    text('your value', window.innerHeight/2+100,450);  
+    text('your value', window.innerWidth/2-75,window.innerHeight-250);  
     }
   else{
     accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
@@ -127,7 +127,7 @@ function draw (){
     textSize(32);
     fill(255,255,255);
     textFont('Georgia');
-    text('your value', window.innerHeight/2+100,450);  
+    text('your value', window.innerWidth/2-75,window.innerHeight-250);    
     storeValuesX.push[leftToRight];
       while (storeValuesX.length>=10){
       storeValuesX.shift();       
@@ -139,7 +139,7 @@ function draw (){
    textSize(32);
     fill(0,255,100);
     textFont('Georgia');
-    text('audience value', window.innerHeight/2+75,250);  
+    text('audience value', window.innerWidth/2-100,window.innerHeight/2-100);  
    
 }
 
