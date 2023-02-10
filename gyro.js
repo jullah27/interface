@@ -11,7 +11,7 @@ socket.addEventListener('open', (event) => {
       if (socket.readyState == socket.OPEN) {
         socket.send(JSON.stringify(orientationArray)) 
         }
-    }, 100);
+    }, 25);
 });
 
 //making var for sensor checking
