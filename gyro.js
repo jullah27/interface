@@ -102,8 +102,6 @@ function draw (){
   //make background with stored values
   background(map(meanVal(storeValuesX)+random(-5,0),-180,180,0,255),map(meanVal(storeValuesX)+random(0,5),-180,180,255,0),0);
   //calc circle values
-  accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
-  accY = ((rotateDegrees+180)/90)*PI-1/2*PI;
   if (!sensorsWorking){
     let fakAccY= sliderY.value()
     let fakAccX=(sliderX.value()/50);
@@ -121,8 +119,10 @@ function draw (){
       while (storeValuesX.length>=10){
       storeValuesX.shift();       
       } 
-    //makeCircle((((mean[0]+180)/360)*window.innerWidth)*2-(window.innerWidth/2),(mean[1]+180)/90, (window.innerHeigth/2)+50, 100,0,0); 
    }
+   let meanX =  (((mean[0]+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
+   let meanY =  ((mean[1]+180)/90);
+   makeCircle(meanY, meanX, -200 ,200, 0, 100); 
 }
 
 function accSensors(){
