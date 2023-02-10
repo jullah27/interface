@@ -11,9 +11,12 @@ socket.addEventListener('open', (event) => {
       if (socket.readyState == socket.OPEN) {
         socket.send(JSON.stringify(orientationArray)) 
         }
-    }, 25);
+    }, 100);
 });
+function preload(){
 
+
+}
 //making var for sensor checking
 let sensorsWorking=false;
 let button;
@@ -100,7 +103,8 @@ function givePermission(){
 function draw (){
   if (!permissionGranted) return;
   //make background with stored values
-  background(map(meanVal(storeValuesX)+random(-5,0),-180,180,0,255),map(meanVal(storeValuesX)+random(0,5),-180,180,255,0),0);
+  //background(map(meanVal(storeValuesX)+random(-5,0),-180,180,0,255),map(meanVal(storeValuesX)+random(0,5),-180,180,255,0),0);
+  background(20,20,100);
   //calc circle values
   if (!sensorsWorking){
     let fakAccY= sliderY.value()
@@ -109,12 +113,21 @@ function draw (){
     while (storeValuesX.length>=10){
     storeValuesX.shift();
   }
-   makeCircle(fakAccY,fakAccX,0,150,0,100);  
+    makeCircle(fakAccY,fakAccX,0,150,0,100);
+    makeCircle(accX,accY,100,150,0,100);
+    textSize(32);
+    fill(255,255,255);
+    textFont('Georgia');
+    text('your value', window.innerHeight/2+100,450);  
     }
   else{
     accX = (((leftToRight+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
     accY = ((rotateDegrees+180)/90);
     makeCircle(accX,accY,100,150,0,100);
+    textSize(32);
+    fill(255,255,255);
+    textFont('Georgia');
+    text('your value', window.innerHeight/2+100,450);  
     storeValuesX.push[leftToRight];
       while (storeValuesX.length>=10){
       storeValuesX.shift();       
@@ -122,8 +135,12 @@ function draw (){
    }
    let meanX =  (((mean[0]+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
    let meanY =  ((mean[1]+180)/90);
-   //make Circle with mean values
-   makeCircle(meanX, meanY, -200 ,200, 0, 100); 
+   makeCircle(meanX, meanY, -200 ,0, 255, 100); 
+   textSize(32);
+    fill(0,255,100);
+    textFont('Georgia');
+    text('audience value', window.innerHeight/2+75,250);  
+   
 }
 
 function accSensors(){
@@ -133,7 +150,7 @@ function accSensors(){
         frontToBack = event.beta; // beta: front back motion
         //storeAccX.push[rotateDegrees];
      // calc rotateDegrees with no border
-        let tempStor = rotateDegrees+180;
+        let tempStor = leftToRight+180;
         tempStor = tempStor%360;
         orientationArray = [leftToRight, tempStor];
         });
