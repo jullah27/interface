@@ -122,7 +122,8 @@ function draw (){
    }
    let meanX =  (((mean[0]+180)/360)*window.innerWidth)*2-(window.innerWidth/2);
    let meanY =  ((mean[1]+180)/90);
-   makeCircle(meanY, meanX, -200 ,200, 0, 100); 
+   //make Circle with mean values
+   makeCircle(meanX, meanY, -200 ,200, 0, 100); 
 }
 
 function accSensors(){
