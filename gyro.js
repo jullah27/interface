@@ -11,7 +11,7 @@ socket.addEventListener('open', (event) => {
     if (socket.readyState == socket.OPEN && orientationArray.length > 0) {
       socket.send(JSON.stringify(orientationArray))
     }
-  }, 100);
+  }, 30);
 });
 function preload() {
 
